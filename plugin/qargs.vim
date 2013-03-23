@@ -6,12 +6,12 @@ command! -nargs=1 -complete=command -bang Qdo call s:Qdo(<q-bang>, <q-args>)
 
 function! s:Qdo(bang, command)
   arglocal
-  exe 'args '.QuickfixFilenames()
+  exe 'args '.s:QuickfixFilenames()
   exe 'argdo'.a:bang.' '.a:command
   argglobal
 endfunction
 
-function! QuickfixFilenames()
+function! s:QuickfixFilenames()
   " Building a hash ensures we get each buffer only once
   let buffer_numbers = {}
   for quickfix_item in getqflist()
