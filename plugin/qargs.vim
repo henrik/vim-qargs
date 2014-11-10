@@ -25,8 +25,17 @@ endfunction
 function! s:QuickfixFilenames()
   " Building a hash ensures we get each buffer only once
   let buffer_numbers = {}
-  for quickfix_item in getqflist()
+
+  " if the current window has a local quickfix list (a location list)
+  " then use it, otherwise use the global quickfix list
+  let quickfix_items = getloclist(0)
+  if len(quickfix_items) == 0
+    let quickfix_items = getqflist()
+  endif
+
+  for quickfix_item in quickfix_items
     let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
   endfor
+
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
