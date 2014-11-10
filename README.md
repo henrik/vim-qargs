@@ -1,5 +1,9 @@
 A Vim plugin for executing operations on the files in the quickfix list.
 
+If the current window has a local quickfix list (a location list), then
+it's used instead of the global quickfix list, otherwise the global
+quickfix list is used.
+
 ## Qdo command
 
 The plugin adds a `:Qdo` command, which executes a command once for each file in the quickfix list.
